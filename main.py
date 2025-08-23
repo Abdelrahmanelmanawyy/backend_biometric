@@ -10,6 +10,20 @@ import os
 from datetime import datetime
 
 app = FastAPI()
+@app.get("/")
+def read_root():
+    return {"status": "ok"}
+
+# Only run uvicorn when this file is executed directly
+if __name__ == "__main__":
+    import uvicorn
+    # Delay heavy imports until here
+    import matplotlib
+
+    # Get port from environment variable, default to 8000 if not set
+    port = int(os.environ.get("PORT", 8000))
+
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 def resize_and_crop(img: Image.Image, target_width: int, target_height: int) -> Image.Image:
@@ -376,7 +390,3 @@ async def validate_photo(
     })
 
 
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("main:app", host="0.0.0.0", port=port, log_level="info")
