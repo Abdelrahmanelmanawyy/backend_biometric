@@ -1,10 +1,20 @@
 fastapi==0.116.1
-uvicorn==0.35.0
-gunicorn==21.2.0        
-opencv-python==4.12.0.88
+uvicorn[standard]==0.30.6
+gunicorn==21.2.0
+
+# Use headless OpenCV on servers (no X/GUI deps needed)
+opencv-python-headless==4.10.0.84
+
+# mediapipe still prefers NumPy 1.x; keep it pinned
 mediapipe==0.10.11
-numpy>=2.0,<2.3
-python-multipart==0.0.6
-Pillow==10.0.1
+
+# Pin NumPy to 1.26.x (compatible with mediapipe & onnxruntime)
+numpy==1.26.4
+
+python-multipart==0.0.9
+Pillow==10.4.0
+
+# rembg + onnxruntime combo that works with NumPy 1.26
 rembg==2.0.67
-onnxruntime==1.15.1     
+onnxruntime==1.16.3
+
